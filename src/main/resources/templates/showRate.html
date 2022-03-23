@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Conversion</title>
+</head>
+<body>
+    <h1>Currency Exchange</h1>
+    <div >
+        <p th:text="${countryFromObj.currencyName} + ':'" 
+            style="display:inline"></p>
+        <p th:text="${countryFromObj.symbol} + ${amount}" 
+            style="display:inline"></p>
+        <!--
+            countryFromObj is a CurrenyModel that contains of, for e.g
+                1) private String currencyID = AFN
+                2) private String currencyAndSymbol = Afghan afghani ؋;
+                3) private String symbol = ؋;
+                4) private String currencyName = Afghanistan
+
+            must write style="display inline" for both paragraphs
+            in order for them to be displayed side by side
+        -->
+    </div>
+
+    <div>
+        <p th:text="${countryToObj.currencyName} + ':'" 
+            style="display:inline"></p>
+        <p th:text="${countryToObj.symbol} + ${amountAfterConversion}" 
+            style="display:inline"></p>
+    </div>
+
+    <!--ok, that's the end! Haha hope you understood :) Jiayou! -->
+</body>
+</html>

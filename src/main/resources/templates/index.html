@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form 
+        th:action="@{/currency}" 
+        method="post">
+        <h1>Currency Exchange</h1>
+        <!--
+            th:action="@{/currency}" find the method that has the path "/currency"
+            method="post"
+            so will look for @PostMapping("/currency") and pass the form input
+            into this method in the controller
+        -->
+        <p1>From: 
+            <select th:name="countryFrom">
+                <option th:each="country : ${countries}" 
+                        th:value="${country.currencyID}"
+                        th:text="${country.currencyAndSymbol}">
+                </option>
+            </select>
+        </p1>
+        <!--
+            th:name="countryFrom" -> we didn't set a th:object here, so there's
+            no bag to carry my inputs from the form. So we set a th:name here.
+            countries is the List<CurrencyModel> that contain of our currencyModel
+            that we had stored inside when looping
+            so we have AF, AI, ... and each has their own currenyID, 
+            currencyAndSymbol, symbol and currencyName
+            so th:each="country : ${countries}" will loop through the List<CurrencyModel>
+            th:value=${country.currencyID} -> e.g. would be "AFN" -> this would be 
+            the input sent to the form
+            th:text is the what is shown on the dropdown list -> e.g. "Afghan afghani ؋"
+            so th:name = "countryFrom" th:value="$country.currencyID"
+            in the payload after submitting (cuz POST method so it will be contained
+            in the payload), it will appear as "countryFrom: AFN"
+        -->
+
+        <p1>To: 
+            <select th:name="countryTo">
+                <option th:each="country : ${countries}" 
+                        th:value="${country.currencyID}"
+                        th:text="${country.currencyAndSymbol}"></option>
+            </select>
+            <!--
+                th:name="countryTo" th:value=${country.currencyID}
+                payload would be "countryTo=XCD"
+            -->
+
+        </p1>
+        <p1>Amount: <input type="text" th:name="amount"/></p1>
+        <!-- payload would be amount=(whatever was submitted e.g. 500)-->
+        <input type="submit" value="Convert"/>
+        <!--
+            ok, now go to controller @PostMapping
+        -->
+    </form>
+</body>
+</html>
